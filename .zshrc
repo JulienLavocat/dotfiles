@@ -30,4 +30,8 @@ source <(fzf --zsh)
 
 for config (~/.zsh/*.zsh) source $config
 
+if [ -z "$TMUX" ]
+  then
+  tmux attach -t main || tmux new -s main
+fi
 
