@@ -17,13 +17,14 @@ Source: https://brew.sh/
 
 1. Install stow: `brew install stow`
 2. Clone the dotfiles: `git clone git@github.com:JulienLavocat/dotfiles.git`
-3. Setup the dotfiles (**must be ran inside the dotfiles directory**): `stow .`
+3. Setup the dotfiles (**must be ran inside the dotfiles directory**): `stow . -v`
 
 ### 3. Zsh / Oh-My-Zsh / Powerlevel10k
 
 Source: https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df
 1. Install Zsh and set it as default shell for the user: `brew install zsh && chsh -s $(which zsh)`
-2. Install Oh-My-Zsh: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+2. Logout and log back in
+3. Install Oh-My-Zsh: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 2. Install zsh-autosuggestions: `git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions`
 3. Install zsh-syntax-highlighting: `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting`
 4. Install fast-syntax-highlighting: `git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting`
