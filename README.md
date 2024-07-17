@@ -1,5 +1,11 @@
 # Dotfiles
 
+## Create and add an SSH key to Github
+
+1. Run: `ssh-keygen -t ed25519 -C "<email>"`
+2. Copy the public key: `cat ~/.ssh/id_ed25519.pub`
+3. Add it to Github: https://github.com/settings/keys
+
 ## Setup
 
 ### 1. Homebrew / Linuxbrew
