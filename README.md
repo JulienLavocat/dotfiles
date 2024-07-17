@@ -22,7 +22,7 @@ Source: https://brew.sh/
 ### 3. Zsh / Oh-My-Zsh / Powerlevel10k
 
 Source: https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df
-1. Install Zsh: `brew install zsh && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && chsh -s $(which zsh)`
+1. Install Zsh and set it as default shell for the user: `brew install zsh && chsh -s $(which zsh)`
 2. Install `Oh-My-Zsh: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 2. Install zsh-autosuggestions: `git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions`
 3. Install zsh-syntax-highlighting: `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting`
