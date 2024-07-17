@@ -21,7 +21,7 @@ export PATH="$PATH:$HOME/.local/bin/spark/bin"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 alias cd='z'
-alias editrc='nvim ~/.zshrc && source ~/.zshrc'
+alias editrc='nvim ~/dotfiles && source ~/.zshrc'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)" 
@@ -29,6 +29,7 @@ eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 
 for config (~/.zsh/*.zsh) source $config
+for project (~/.zsh/projects/*.zsh) source $project
 
 if [ -z "$TMUX" ]
   then
