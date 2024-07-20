@@ -24,7 +24,7 @@ Source: https://brew.sh/
 Source: https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df
 1. Install Zsh and set it as default shell for the user: `brew install zsh && command -v zsh | sudo tee -a /etc/shells && chsh -s $(which zsh)`
 2. Logout and log back in
-3. Install Oh-My-Zsh: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+3. Install Oh-My-Zsh: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && rm .zshrc && mv .zshrc.pre-oh-my-zsh .zshrc`
 2. Install zsh-autosuggestions: `git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions`
 3. Install zsh-syntax-highlighting: `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting`
 4. Install fast-syntax-highlighting: `git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting`
