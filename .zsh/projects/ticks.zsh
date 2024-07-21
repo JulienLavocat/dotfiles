@@ -5,7 +5,8 @@ export MOBIDATA_SPARK_PACKAGES=com.datastax.spark:spark-cassandra-connector_2.13
 export MOBIDATA_SPARK_DRIVER_MEMORY=12g
 export MOBIDATA_SPARK_JARS=postgresql-42.7.1.jar
 export MOBIDATA_SPARK_DRIVER_CLASS_PATH=postgresql-42.7.1.jar
-export MOBIDATA_SPARK_MASTER=local
+export MOBIDATA_SPARK_MASTER=spark://localhost:7077
+export MOBIDATA_SPARK_DEPLOY_MODE=cluster
 
 function spark() {
   mvn install &&
@@ -16,8 +17,11 @@ function spark() {
     --packages $MOBIDATA_SPARK_PACKAGES \
     --driver-memory $MOBIDATA_SPARK_DRIVER_MEMORY \
     --master $MOBIDATA_SPARK_MASTER \
+    --deploy-mode $MOBIDATA_SPARK_DEPLOY_MODE \
     $SPARK_EXEC
 }
+
+alias ssh-ticks='sshpass -p "$TICKS_VM_PASSWORD" ssh jlavocat@ticks06.xsalto.net'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!
 export SDKMAN_DIR="$HOME/.sdkman"
