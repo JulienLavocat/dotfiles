@@ -35,13 +35,9 @@ Source: https://gist.github.com/n1snt/454b879b8f0b7995740ae04c5fb5b7df
 Version >=0.13 is required and can be hard to find, snap has an updated version => https://snapcraft.io/alacritty
 - Run: `snap install alacritty --classic`
 
-### 5. Zoxide
+### 5. Install Zoxide, Tmux, Xclip
 
-- Run: `brew install zoxide`
-
-### 6. Tmux
-
-- Run: `brew install tmux`
+- Run: `brew install zoxide tmux xclip`
 
 ### 5. Install Neovim
 

@@ -8,7 +8,7 @@ export MOBIDATA_SPARK_DRIVER_CLASS_PATH=postgresql-42.7.1.jar
 export MOBIDATA_SPARK_MASTER=spark://localhost:7077
 export MOBIDATA_SPARK_DEPLOY_MODE=cluster
 
-function spark() {
+function ticks-spark() {
   mvn install &&
   spark-submit --properties-file $SPARK_CONF \
     --class $1 \
@@ -21,7 +21,33 @@ function spark() {
     $SPARK_EXEC
 }
 
-alias ssh-ticks='sshpass -p "$TICKS_VM_PASSWORD" ssh jlavocat@ticks06.xsalto.net'
+function ticks() {
+    case "$1" in
+        ssh) 
+            shift 1
+            sshpass -p "$TICKS_VM_PASSWORD" ssh jlavocat@ticks06.xsalto.net
+        ;;
+        scp)
+            if [ "$#" -ne 3 ]; then
+                echo "Missing arguments, usage: ticks scp [source] [dest]"
+                return
+            fi
+
+            shift 1
+            SOURCE=$1
+            DEST=$2
+            scp -r jlavocat@ticks06.xsalto.net:$1 $2
+        ;;
+        spark)
+            shift 1
+            ticks-spark "$@"
+        ;;
+        pass)
+            echo $TICKS_VM_PASSWORD | clipboard
+        ;;
+    esac
+    
+}
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!
 export SDKMAN_DIR="$HOME/.sdkman"
