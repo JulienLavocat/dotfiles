@@ -19,6 +19,11 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.local/bin/spark/bin"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="$PATH:$HOME/.dotnet/tools"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="/home/julien/.config/godotenv/godot/bin:$PATH"
+
+export GODOT="/home/julien/.config/godotenv/godot/bin/godot"
 
 alias cd='z'
 alias editrc='nvim ~/dotfiles && source ~/.zshrc'
