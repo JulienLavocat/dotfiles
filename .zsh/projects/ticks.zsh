@@ -3,12 +3,14 @@ export SPARK_EXEC=~/mobidata/target/spark-mobidata-1.0-SNAPSHOT.jar
 
 export MOBIDATA_SPARK_PACKAGES=com.datastax.spark:spark-cassandra-connector_2.13:3.5.0,com.github.jnr:jnr-posix:3.1.15,com.jayway.jsonpath:json-path:2.9.0,net.minidev:json-smart:2.5.1,net.minidev:accessors-smart:2.5.1
 export MOBIDATA_SPARK_DRIVER_MEMORY=12g
-export MOBIDATA_SPARK_JARS=postgresql-42.7.1.jar
-export MOBIDATA_SPARK_DRIVER_CLASS_PATH=postgresql-42.7.1.jar
+export MOBIDATA_SPARK_JARS=~/.local/bin/spark/jars/postgresql-42.7.3.jar
+export MOBIDATA_SPARK_DRIVER_CLASS_PATH=~/.local/bin/spark/jars/postgresql-42.7.3.jar
 export MOBIDATA_SPARK_MASTER=spark://localhost:7077
-export MOBIDATA_SPARK_DEPLOY_MODE=cluster
+export MOBIDATA_SPARK_DEPLOY_MODE=client
 
-function ticks-spark() {
+export SPARK_MASTER_HOST=0.0.0.0
+
+function ticks-spark-submit() {
   mvn install &&
   spark-submit --properties-file $SPARK_CONF \
     --class $1 \
@@ -16,8 +18,6 @@ function ticks-spark() {
     --jars $MOBIDATA_SPARK_JARS \
     --packages $MOBIDATA_SPARK_PACKAGES \
     --driver-memory $MOBIDATA_SPARK_DRIVER_MEMORY \
-    --master $MOBIDATA_SPARK_MASTER \
-    --deploy-mode $MOBIDATA_SPARK_DEPLOY_MODE \
     $SPARK_EXEC
 }
 
@@ -38,9 +38,27 @@ function ticks() {
             DEST=$2
             scp -r jlavocat@ticks06.xsalto.net:$1 $2
         ;;
-        spark)
+        submit)
             shift 1
-            ticks-spark "$@"
+            ticks-spark-submit "$@"
+        ;;
+        spark)
+            if [ "$#" -ne 2 ]; then
+                echo "Missing arguments, usage: ticks spark start|stop"
+                return
+            fi
+
+            shift 1
+
+            if [[ "$1" == "start" ]]; then
+                ~/.local/bin/spark/sbin/start-master.sh
+                ~/.local/bin/spark/sbin/start-worker.sh spark://localhost:7077
+            fi
+
+            if [[ "$1" == "stop" ]]; then
+                ~/.local/bin/spark/sbin/stop-master.sh
+                ~/.local/bin/spark/sbin/stop-worker.sh
+            fi
         ;;
         pass)
             echo $TICKS_VM_PASSWORD | clipboard
