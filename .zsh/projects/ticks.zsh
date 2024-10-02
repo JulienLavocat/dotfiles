@@ -1,7 +1,7 @@
-export SPARK_CONF=~/mobidata/config/spark-config-jlavocat.conf
+export SPARK_CONF=~/mobidata/config/jlavocat/spark-config-atoumod.conf
 export SPARK_EXEC=~/mobidata/target/spark-mobidata-1.0-SNAPSHOT.jar 
 
-export MOBIDATA_SPARK_PACKAGES=com.datastax.spark:spark-cassandra-connector_2.13:3.5.0,com.github.jnr:jnr-posix:3.1.15,com.jayway.jsonpath:json-path:2.9.0,net.minidev:json-smart:2.5.1,net.minidev:accessors-smart:2.5.1
+export MOBIDATA_SPARK_PACKAGES=com.datastax.spark:spark-cassandra-connector_2.13:3.5.0,com.github.jnr:jnr-posix:3.1.15,com.jayway.jsonpath:json-path:2.9.0,net.minidev:json-smart:2.5.1,net.minidev:accessors-smart:2.5.1,com.rabbitmq:amqp-client:5.21.0
 export MOBIDATA_SPARK_DRIVER_MEMORY=12g
 export MOBIDATA_SPARK_JARS=~/.local/bin/spark/jars/postgresql-42.7.3.jar
 export MOBIDATA_SPARK_DRIVER_CLASS_PATH=~/.local/bin/spark/jars/postgresql-42.7.3.jar
@@ -18,7 +18,8 @@ function ticks-spark-submit() {
     --jars $MOBIDATA_SPARK_JARS \
     --packages $MOBIDATA_SPARK_PACKAGES \
     --driver-memory $MOBIDATA_SPARK_DRIVER_MEMORY \
-    $SPARK_EXEC
+    --conf spark.mobidata.init=true \
+    $SPARK_EXEC > logs.txt
 }
 
 function ticks() {
