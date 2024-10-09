@@ -64,6 +64,9 @@ function ticks() {
         pass)
             echo $TICKS_VM_PASSWORD | clipboard
         ;;
+        pf)
+            kubectl port-forward svc/mobidata-cassandra-datacenter1-service 9042:9042
+        ;;
     esac
     
 }
