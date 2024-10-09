@@ -26,7 +26,7 @@ export PATH="/home/julien/.config/godotenv/godot/bin:$PATH"
 export GODOT="/home/julien/.config/godotenv/godot/bin/godot"
 
 alias cd='z'
-alias editrc='nvim ~/dotfiles && source ~/.zshrc'
+alias editrc='cd ~/dotfiles && nvim && source ~/.zshrc'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)" 
