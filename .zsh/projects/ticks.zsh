@@ -10,6 +10,7 @@ export MOBIDATA_SPARK_DEPLOY_MODE=client
 
 export SPARK_MASTER_HOST=0.0.0.0
 
+
 function ticks-spark-submit() {
   mvn install &&
   spark-submit --properties-file $SPARK_CONF \
@@ -18,7 +19,6 @@ function ticks-spark-submit() {
     --jars $MOBIDATA_SPARK_JARS \
     --packages $MOBIDATA_SPARK_PACKAGES \
     --driver-memory $MOBIDATA_SPARK_DRIVER_MEMORY \
-    --conf spark.mobidata.init=true \
     $SPARK_EXEC > logs.txt
 }
 
