@@ -1,0 +1,11 @@
+[font]
+size = 13
+normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+
+[window]
+decorations = "None"
+startup_mode = "Maximized"
+padding = { x = 7, y = 0 }
+
+[general]
+import = ["~/.config/alacritty/theme.toml"]
