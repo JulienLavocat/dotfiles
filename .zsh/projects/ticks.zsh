@@ -26,7 +26,7 @@ function ticks() {
     case "$1" in
         ssh) 
             shift 1
-            sshpass -p "$TICKS_VM_PASSWORD" ssh jlavocat@ticks06.xsalto.net
+            ssh "jlavocat@ticks0$1.xsalto.net"
         ;;
         scp)
             if [ "$#" -ne 3 ]; then
@@ -60,9 +60,6 @@ function ticks() {
                 ~/.local/bin/spark/sbin/stop-master.sh
                 ~/.local/bin/spark/sbin/stop-worker.sh
             fi
-        ;;
-        pass)
-            echo $TICKS_VM_PASSWORD | clipboard
         ;;
         pf)
             kubectl port-forward svc/mobidata-cassandra-datacenter1-service 9042:9042
