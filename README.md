@@ -51,6 +51,13 @@ Version >=0.13 is required and can be hard to find, snap has an updated version 
 - Display time with seconds: `gsettings set org.gnome.desktop.interface clock-show-seconds true`
 - Show currently playing media: https://github.com/sakithb/media-controls
 
+### (Optional) Docker setup on MacOS (without Docker Desktop)
+
+- Run: `brew install colima docker docker-compose`
+- Add docker-compose as plugin (check `Caveats` section after running `brew info docker-compose`)
+- Run: `brew services start colima`
+- Enjoy docker without Docker Compose
+
 ### 6. End steps
 
 1. Logout from the user and log back in
