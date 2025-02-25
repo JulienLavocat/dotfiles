@@ -28,7 +28,9 @@ export GODOT="/home/julien/.config/godotenv/godot/bin/godot"
 alias cd='z'
 alias editrc='cd ~/dotfiles && nvim && source ~/.zshrc'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [ -f /tmp/foo.txt ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 eval "$(zoxide init zsh)" 
 
 source <(fzf --zsh)
@@ -40,3 +42,7 @@ if [ -z "$TMUX" ]
   then
   tmux attach -t main || tmux new -s main
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/julien/.sdkman"
+[[ -s "/Users/julien/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/julien/.sdkman/bin/sdkman-init.sh"
