@@ -28,9 +28,7 @@ export GODOT="/home/julien/.config/godotenv/godot/bin/godot"
 alias cd='z'
 alias editrc='cd ~/dotfiles && nvim && source ~/.zshrc'
 
-if [ -f /tmp/foo.txt ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)" 
 
 source <(fzf --zsh)
