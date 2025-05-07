@@ -33,8 +33,8 @@ eval "$(zoxide init zsh)"
 
 source <(fzf --zsh)
 
-for config (~/.zsh/*.zsh) source $config
-for project (~/.zsh/projects/*.zsh) source $project
+for config (~/.zsh/*.sh) source $config
+for project (~/.zsh/projects/*.sh) source $project
 
 if [ -z "$TMUX" ]
   then
@@ -44,3 +44,27 @@ fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/julien/.sdkman"
 [[ -s "/Users/julien/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/julien/.sdkman/bin/sdkman-init.sh"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/julien/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/julien/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/julien/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/julien/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# pnpm
+export PNPM_HOME="/home/julien/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
