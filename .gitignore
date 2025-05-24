@@ -1,2 +1,4 @@
 *.secrets.zsh
 **/.DS_Store
+.config/spacetime
+.config/github-copilot
