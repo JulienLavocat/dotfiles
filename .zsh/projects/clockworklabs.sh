@@ -15,3 +15,18 @@ function cl-web() {
     # Add a new pane to run commands
     tmux split-window
 }
+
+function cl-login-local() {
+    spacetime logout
+    spacetime login --auth-host http://localhost:3000
+}
+
+function cl-login-stg() {
+    spacetime logout
+    spacetime login --auth-host https://staging.spacetimedb.com
+}
+
+function cl-login-prod() {
+    spacetime logout
+    spacetime login
+}

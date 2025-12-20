@@ -3,3 +3,5 @@ alias sopsd='sops --decrypt --in-place'
 
 alias clipboard='xclip -sel clip'
 alias k='kubectl'
+
+alias godot4='godot'
