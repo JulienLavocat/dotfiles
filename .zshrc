@@ -18,10 +18,10 @@ export VOLTA_HOME="$HOME/.volta"
 
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.local/bin/spark/bin"
-export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="$PATH:$VOLTA_HOME/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/go/bin"
-export PATH="/home/julien/.config/godotenv/godot/bin:$PATH"
+export PATH="$PATH:$HOME/.config/godotenv/godot/bin"
 
 export GODOT="/home/julien/.config/godotenv/godot/bin/godot"
 
@@ -68,3 +68,14 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# bun completions
+[ -s "/home/julien/.oh-my-zsh/completions/_bun" ] && source "/home/julien/.oh-my-zsh/completions/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
