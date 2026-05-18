@@ -1,7 +1,13 @@
 return {
-  { "wittyjudge/gruvbox-material.nvim", opts = {
-    style = "dark",
-  } },
+  {
+    "f4z3r/gruvbox-material.nvim",
+    name = "gruvbox-material",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      contrast = "hard",
+    },
+  },
   {
     "LazyVim/LazyVim",
     opts = {
