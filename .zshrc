@@ -90,5 +90,6 @@ fi
 # zoxide must be initialized last, after anything else that sets up shell hooks
 if (( $+commands[zoxide] )); then
   eval "$(zoxide init zsh)"
-  alias cd='z'
+  # Claude Code copies aliases into its shells, where zoxide's hook doesn't run
+  [[ -z $CLAUDECODE ]] && alias cd='z'
 fi
