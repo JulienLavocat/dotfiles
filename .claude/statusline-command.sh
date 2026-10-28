@@ -20,7 +20,9 @@ branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short -q HEAD 2>/dev/n
 	|| git -C "$cwd" --no-optional-locks rev-parse --short HEAD 2>/dev/null)
 if [ -n "$branch" ]; then
 	changed=$(git -C "$cwd" --no-optional-locks status --porcelain 2>/dev/null | wc -l)
-	printf ' \033[02m|\033[00m \033[01;32mgit: %s\033[00m' "$branch"
+	# Separator and "git:" label replaced by p10k's branch icon (U+F126, as UTF-8 octal bytes
+	# so macOS's bash 3.2 printf can print it), requested 2026-10-28.
+	printf ' \033[01;32m\357\204\246 %s\033[00m' "$branch"
 	if [ "$changed" -gt 0 ]; then
 		printf ' \033[31m(%d changed)\033[00m' "$changed"
 	else
@@ -77,7 +79,8 @@ fmt_num() {
 	printf '%d' "${1:-0}" | rev | sed 's/\([0-9]\{3\}\)/\1,/g;s/,$//' | rev
 }
 
-[ -n "$model" ] && printf ' \033[02m|\033[00m \033[36mmodel: %s\033[00m' "$model"
+# "model:" label dropped, value only, requested 2026-10-28.
+[ -n "$model" ] && printf ' \033[02m|\033[00m \033[36m%s\033[00m' "$model"
 
 [ -n "$used_pct" ] && printf ' \033[02m|\033[00m \033[33mctx: %.0f%%\033[00m' "$used_pct"
 
