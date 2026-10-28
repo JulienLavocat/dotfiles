@@ -47,6 +47,12 @@ Version >=0.13 is required and can be hard to find, snap has an updated version 
 
 - Install Neovim and it's required dependencies: `brew install lazygit neovim ripgrep fzf gcc volta`
 
+### (Optional) Claude Code
+
+`~/.claude/settings.json` (model, plugins, status line…) and `~/.claude/statusline-command.sh` are stowed from this repo. If a `~/.claude/settings.json` already exists, delete it before running stow.
+
+- Install jq, used by the status line: `brew install jq`
+
 ### (Optional) Gnome Setup
 
 - Display time with seconds: `gsettings set org.gnome.desktop.interface clock-show-seconds true`
