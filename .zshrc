@@ -6,7 +6,10 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)
+plugins=(git zsh-autosuggestions fast-syntax-highlighting)
+
+# Must be set before oh-my-zsh runs compinit
+fpath=(~/.zsh/completions $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
