@@ -13,37 +13,60 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export EDITOR=nvim
+# $(tty) returns "not a tty" under p10k instant prompt, $TTY is set by zsh itself
+export GPG_TTY=$TTY
+
+# Homebrew lives in a different prefix on Apple Silicon, Intel macs and Linux
+for brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  [[ -x $brew ]] && eval "$($brew shellenv)" && break
+done
+unset brew
+
+case $OSTYPE in
+  darwin*) source ~/.zsh/os/darwin.sh ;;
+  linux*) source ~/.zsh/os/linux.sh ;;
+esac
 
 export VOLTA_HOME="$HOME/.volta"
+export BUN_INSTALL="$HOME/.bun"
+export GODOT="$HOME/.config/godotenv/godot/bin/godot"
 
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.local/bin/spark/bin"
-export PATH="$PATH:$VOLTA_HOME/bin"
-export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:$HOME/go/bin"
-export PATH="$PATH:$HOME/.config/godotenv/godot/bin"
+# (N-/) skips directories that don't exist on this machine, -U removes duplicates
+typeset -U path
+path=(
+  $HOME/.opencode/bin(N-/)
+  $BUN_INSTALL/bin(N-/)
+  $PNPM_HOME(N-/)
+  $path
+  $HOME/.local/bin(N-/)
+  $HOME/.local/bin/spark/bin(N-/)
+  $VOLTA_HOME/bin(N-/)
+  $HOME/.dotnet/tools(N-/)
+  $HOME/go/bin(N-/)
+  $HOME/.config/godotenv/godot/bin(N-/)
+)
 
-export GODOT="/home/julien/.config/godotenv/godot/bin/godot"
-
-alias cd='z'
 alias editrc='cd ~/dotfiles && nvim && source ~/.zshrc'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(zoxide init zsh)" 
+for config (~/.zsh/*.sh(N)) source $config
+for project (~/.zsh/projects/*.sh(N)) source $project
 
-source <(fzf --zsh)
+# Settings for this machine only, not tracked in the dotfiles
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
 
-for config (~/.zsh/*.sh) source $config
-for project (~/.zsh/projects/*.sh) source $project
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh)"
+  alias cd='z'
+fi
 
-if [ -z "$TMUX" ]
+(( $+commands[fzf] )) && source <(fzf --zsh)
+(( $+commands[ng] )) && source <(ng completion script)
+[[ -s "$HOME/.oh-my-zsh/completions/_bun" ]] && source "$HOME/.oh-my-zsh/completions/_bun"
+
+if [ -z "$TMUX" ] && (( $+commands[tmux] ))
   then
   tmux attach -t main || tmux new -s main
 fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/julien/.sdkman"
-[[ -s "/Users/julien/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/julien/.sdkman/bin/sdkman-init.sh"
 
 # # >>> conda initialize >>>
 # # !! Contents within this block are managed by 'conda init' !!
@@ -60,27 +83,8 @@ export SDKMAN_DIR="/Users/julien/.sdkman"
 # unset __conda_setup
 # # <<< conda initialize <<<
 
-
-# pnpm
-export PNPM_HOME="/home/julien/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# bun completions
-[ -s "/home/julien/.oh-my-zsh/completions/_bun" ] && source "/home/julien/.oh-my-zsh/completions/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-export GPG_TTY=$(tty)
-
-# opencode
-export PATH=/home/julien/.opencode/bin:$PATH
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+if [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
+  source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi

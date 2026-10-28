@@ -2,8 +2,8 @@ function update-cloud-julien() {
     cargo build --release
     cargo controldb build
 
-    scp /home/julien/clockworklabs/spacetimedbprivate/target/wasm32-unknown-unknown/release-wasm/spacetime_control.wasm root@stdb:/stdb
-    scp /home/julien/clockworklabs/spacetimedbprivate/target/release/spacetimedb-cloud root@stdb:/stdb
+    scp $HOME/clockworklabs/spacetimedbprivate/target/wasm32-unknown-unknown/release-wasm/spacetime_control.wasm root@stdb:/stdb
+    scp $HOME/clockworklabs/spacetimedbprivate/target/release/spacetimedb-cloud root@stdb:/stdb
 
     echo "Build and upload complete. Now run the following commands on the server:"
     echo "service spacetimedb restart"
@@ -75,7 +75,7 @@ cl-docker-private() (
   emulate -L zsh
   setopt err_return pipe_fail
 
-  local repo=/home/julien/clockworklabs/spacetimedbprivate
+  local repo="${CL_REPO:-$HOME/clockworklabs/spacetimedbprivate}"
   local image="${CL_DOCKER_IMAGE:-git.jlavocat.eu/julienlavocat/spacetimedb-cloud}"
   local platform="${CL_DOCKER_PLATFORM:-linux/amd64}"
 

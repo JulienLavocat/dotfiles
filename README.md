@@ -18,7 +18,9 @@ Source: https://brew.sh/
 
 1. Install stow: `brew install stow`
 2. Clone the dotfiles: `git clone git@github.com:JulienLavocat/dotfiles.git`
-3. Setup the dotfiles (**must be ran inside the dotfiles directory**): `stow . -v`
+3. Create `~/.claude/skills` first, otherwise stow links the whole `~/.claude` into the repo: `mkdir -p ~/.claude/skills`
+4. Setup the dotfiles (**must be ran inside the dotfiles directory**): `stow . -v`
+5. Put settings that only apply to one machine in `~/.zshrc.local` (not tracked)
 
 ### 3. Zsh / Oh-My-Zsh / Powerlevel10k
 
