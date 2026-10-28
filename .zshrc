@@ -57,11 +57,6 @@ for project (~/.zsh/projects/*.sh(N)) source $project
 # Settings for this machine only, not tracked in the dotfiles
 [[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
 
-if (( $+commands[zoxide] )); then
-  eval "$(zoxide init zsh)"
-  alias cd='z'
-fi
-
 (( $+commands[fzf] )) && source <(fzf --zsh)
 (( $+commands[ng] )) && source <(ng completion script)
 [[ -s "$HOME/.oh-my-zsh/completions/_bun" ]] && source "$HOME/.oh-my-zsh/completions/_bun"
@@ -90,4 +85,10 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 if [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
   source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+
+# zoxide must be initialized last, after anything else that sets up shell hooks
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh)"
+  alias cd='z'
 fi
