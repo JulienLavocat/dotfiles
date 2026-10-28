@@ -1,6 +1,7 @@
 [user]
 	name = Julien Lavocat
 	email = julien.lavocat@gmail.com
+	signingkey = A8501999FBD213C37AF5ED641E29B9D246D8F82C
 [init]
 	defaultBranch = main
 [pull]
@@ -10,3 +11,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true

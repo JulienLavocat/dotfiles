@@ -79,3 +79,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+export GPG_TTY=$(tty)
+
+# opencode
+export PATH=/home/julien/.opencode/bin:$PATH

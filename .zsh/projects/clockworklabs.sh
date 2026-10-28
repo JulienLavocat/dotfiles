@@ -68,3 +68,59 @@ function update_image_tag() {
     echo "Updated $file"
     echo "  $current_image → $new_image"
 }
+
+# Build spacetimedb-cloud at a given git tag and push it to my registry.
+# Usage: cl-docker-private <git-tag> [extra docker buildx args...]
+cl-docker-private() (
+  emulate -L zsh
+  setopt err_return pipe_fail
+
+  local repo=/home/julien/clockworklabs/spacetimedbprivate
+  local image="${CL_DOCKER_IMAGE:-git.jlavocat.eu/julienlavocat/spacetimedb-cloud}"
+  local platform="${CL_DOCKER_PLATFORM:-linux/amd64}"
+
+  local tag=$1
+  if [[ -z $tag ]]; then
+    print -u2 "usage: cl-docker-private <git-tag> [extra docker buildx args...]"
+    return 2
+  fi
+  shift
+
+  cd $repo
+
+  # Checking out the tag would clobber (or be blocked by) local changes.
+  if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
+    print -u2 "cl-docker-private: working tree has uncommitted changes; commit or stash first"
+    return 1
+  fi
+
+
+  # Only fetch the requested tag, and only if we don't have it yet. A blanket
+  # `git fetch --tags` fails when any unrelated local tag diverges from origin.
+  if ! git rev-parse --quiet --verify "refs/tags/$tag^{commit}" >/dev/null; then
+    git fetch origin "refs/tags/$tag:refs/tags/$tag" || {
+      print -u2 "cl-docker-private: no such tag: $tag"
+      return 1
+    }
+  fi
+
+  # Remember where we were (branch name, or sha if detached) to restore afterwards.
+  local prev
+  prev=$(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD)
+
+  {
+    git checkout --quiet "refs/tags/$tag"
+    git submodule update --init --recursive
+
+    docker buildx build \
+      -f private/crates/cloud/Dockerfile \
+      -t "$image:$tag" \
+      --platform "$platform" \
+      --push \
+      "$@" \
+      .
+    print "pushed $image:$tag"
+  } always {
+    git checkout --quiet "$prev" && git submodule update --init --recursive
+  }
+)
