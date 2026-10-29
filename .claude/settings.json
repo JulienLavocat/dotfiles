@@ -41,6 +41,10 @@
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "autoMode": {
+    "allow": [
+      "$defaults",
+      "Force-pushing with `git push --force-with-lease` to the user's own feature branch (never main or another default/protected branch), e.g. after a rebase the user asked for"
+    ],
     "environment": [
       "### Org-wide",
       "**Organization**: None configured",
