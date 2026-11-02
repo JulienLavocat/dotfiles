@@ -20,6 +20,12 @@ description: Generate a commit message and description based on the changes made
 
 ## Instructions
 
+> Omit needless words. Vigorous writing is concise. A sentence should contain no
+> unnecessary words, a paragraph no unnecessary sentences, for the same reason that
+> a drawing should have no unnecessary lines and a machine no unnecessary parts.
+> This requires not that the writer make all his sentences short, or that he avoid
+> all detail and treat his subjects only in outline, but that every word tell.
+
 Generate a commit message and short description based on the changes. If anything is staged, describe only the staged changes; otherwise describe everything in the status above, including untracked files (read them, their content is not in the diffs).
 
 The commit message should be concise and follow the conventional commits format. Match the recent commits: same types, scope names and casing. Imperative, no trailing period, under ~72 characters.

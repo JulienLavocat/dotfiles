@@ -33,7 +33,13 @@ Imperative, sentence case, no prefix, no trailing period, under ~60 characters. 
 
 ### Body
 
-Omit needless words. Every line must tell a reviewer something they can't see at a glance in the diff. Use this shape, dropping any section that would be empty:
+> Omit needless words. Vigorous writing is concise. A sentence should contain no
+> unnecessary words, a paragraph no unnecessary sentences, for the same reason that
+> a drawing should have no unnecessary lines and a machine no unnecessary parts.
+> This requires not that the writer make all his sentences short, or that he avoid
+> all detail and treat his subjects only in outline, but that every word tell.
+
+Every line must tell a reviewer something they can't see at a glance in the diff. Use this shape, dropping any section that would be empty:
 
 ```markdown
 <One or two sentences: what the PR adds and why. Point to docs on the branch for details.>
@@ -84,6 +90,7 @@ A reviewer should read the whole body in under a minute. Aim for 10–20 lines; 
 ### Open the PR (only when asked)
 
 1. Check `gh pr list --head <branch>`; if a PR exists, give its link instead of creating another, or update its body with `gh pr edit <number> --body-file <file>` when asked.
-2. Push with `git push -u origin <branch>` if the branch has no upstream.
-3. Write the body to a file in the scratchpad directory and run `gh pr create --base <base> --title "<title>" --body-file <file>`, where `<base>` is the base branch above without the `origin/` prefix (for example `master`).
-4. Reply with the link and a few lines on what the PR contains and anything left out (e.g. untracked files).
+2. If the branch has no commits, commit the changes first: asking to open a PR counts as asking to commit.
+3. Push with `git push -u origin <branch>` if the branch has no upstream.
+4. Write the body to a file in the scratchpad directory and run `gh pr create --base <base> --title "<title>" --body-file <file>`, where `<base>` is the base branch above without the `origin/` prefix (for example `master`).
+5. Reply with the link and a few lines on what the PR contains and anything left out (e.g. untracked files).
