@@ -19,6 +19,50 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "agent",
+            "if": "Bash(git commit *)",
+            "prompt": "Review text Claude is about to publish. The tool call: $ARGUMENTS\n\nFind the text: a git commit message (-m, -F <file>, or a heredoc) or a GitHub PR title and body (--title, --body, or --body-file <file>: read the file). If the command publishes no prose, answer {\"ok\": true}.\n\nThe author's rule: \"Omit needless words. Vigorous writing is concise. A sentence should contain no unnecessary words, a paragraph no unnecessary sentences. This requires not that the writer make all sentences short, or avoid all detail, but that every word tell.\" Failures the author has caught before: listing what a general word already covers (\"access and refresh tokens\" when tokens are the only ones); a clause repeating what an earlier sentence or the intro said; explaining the old bug inside a bullet that should state the new behavior; mixed tenses in one sentence; side effects a reader doesn't need; filler such as \"also\", \"just\", \"basically\", \"various\", \"in order to\", \"is able to\", \"make use of\"; preamble such as \"This PR\" or \"This change introduces\"; testing lines that say what each test asserts. Flag only clear cases: words or clauses that can go, or be shortened, with no information lost. Ignore code, paths, identifiers, quoted output, trailers, and taste.\n\nAnswer with JSON only. Nothing clear to cut: {\"ok\": true}. Otherwise {\"ok\": false, \"reason\": \"Needless words in the <commit message|PR body>: '<quoted text>' -> '<shorter text>'; ... Fix the text and rerun.\"}, listing every cut.",
+            "model": "claude-sonnet-5-5",
+            "timeout": 90,
+            "statusMessage": "Checking text for needless words"
+          },
+          {
+            "type": "agent",
+            "if": "Bash(gh pr create *)",
+            "prompt": "Review text Claude is about to publish. The tool call: $ARGUMENTS\n\nFind the text: a git commit message (-m, -F <file>, or a heredoc) or a GitHub PR title and body (--title, --body, or --body-file <file>: read the file). If the command publishes no prose, answer {\"ok\": true}.\n\nThe author's rule: \"Omit needless words. Vigorous writing is concise. A sentence should contain no unnecessary words, a paragraph no unnecessary sentences. This requires not that the writer make all sentences short, or avoid all detail, but that every word tell.\" Failures the author has caught before: listing what a general word already covers (\"access and refresh tokens\" when tokens are the only ones); a clause repeating what an earlier sentence or the intro said; explaining the old bug inside a bullet that should state the new behavior; mixed tenses in one sentence; side effects a reader doesn't need; filler such as \"also\", \"just\", \"basically\", \"various\", \"in order to\", \"is able to\", \"make use of\"; preamble such as \"This PR\" or \"This change introduces\"; testing lines that say what each test asserts. Flag only clear cases: words or clauses that can go, or be shortened, with no information lost. Ignore code, paths, identifiers, quoted output, trailers, and taste.\n\nAnswer with JSON only. Nothing clear to cut: {\"ok\": true}. Otherwise {\"ok\": false, \"reason\": \"Needless words in the <commit message|PR body>: '<quoted text>' -> '<shorter text>'; ... Fix the text and rerun.\"}, listing every cut.",
+            "model": "claude-sonnet-5-5",
+            "timeout": 90,
+            "statusMessage": "Checking text for needless words"
+          },
+          {
+            "type": "agent",
+            "if": "Bash(gh pr edit *)",
+            "prompt": "Review text Claude is about to publish. The tool call: $ARGUMENTS\n\nFind the text: a git commit message (-m, -F <file>, or a heredoc) or a GitHub PR title and body (--title, --body, or --body-file <file>: read the file). If the command publishes no prose, answer {\"ok\": true}.\n\nThe author's rule: \"Omit needless words. Vigorous writing is concise. A sentence should contain no unnecessary words, a paragraph no unnecessary sentences. This requires not that the writer make all sentences short, or avoid all detail, but that every word tell.\" Failures the author has caught before: listing what a general word already covers (\"access and refresh tokens\" when tokens are the only ones); a clause repeating what an earlier sentence or the intro said; explaining the old bug inside a bullet that should state the new behavior; mixed tenses in one sentence; side effects a reader doesn't need; filler such as \"also\", \"just\", \"basically\", \"various\", \"in order to\", \"is able to\", \"make use of\"; preamble such as \"This PR\" or \"This change introduces\"; testing lines that say what each test asserts. Flag only clear cases: words or clauses that can go, or be shortened, with no information lost. Ignore code, paths, identifiers, quoted output, trailers, and taste.\n\nAnswer with JSON only. Nothing clear to cut: {\"ok\": true}. Otherwise {\"ok\": false, \"reason\": \"Needless words in the <commit message|PR body>: '<quoted text>' -> '<shorter text>'; ... Fix the text and rerun.\"}, listing every cut.",
+            "model": "claude-sonnet-5-5",
+            "timeout": 90,
+            "statusMessage": "Checking text for needless words"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Review prose Claude is about to write into a file. The tool call: $ARGUMENTS\n\nLook only at code comments in the new text (`content` for Write, `new_string` for Edit; for an Edit, ignore comments already present in `old_string`), plus the prose of Markdown files. If there is none, answer {\"ok\": true}.\n\nThe author's rule: \"Omit needless words. Vigorous writing is concise. A sentence should contain no unnecessary words, a paragraph no unnecessary sentences. This requires not that the writer make all sentences short, or avoid all detail, but that every word tell.\" Failures the author has caught before: listing what a general word already covers (\"access and refresh tokens\" when tokens are the only ones); a clause repeating what an earlier sentence or the intro said; explaining the old bug inside a bullet that should state the new behavior; mixed tenses in one sentence; side effects a reader doesn't need; filler such as \"also\", \"just\", \"basically\", \"various\", \"in order to\", \"is able to\", \"make use of\"; preamble such as \"This PR\" or \"This change introduces\"; testing lines that say what each test asserts. Flag only clear cases: words or clauses that can go, or be shortened, with no information lost. Ignore code, paths, identifiers, quoted output, trailers, and taste.\n\nAnswer with JSON only. Nothing clear to cut: {\"ok\": true}. Otherwise {\"ok\": false, \"reason\": \"Needless words in a comment: '<quoted text>' -> '<shorter text>'; ... Fix and redo the edit.\"}, listing every cut.",
+            "model": "claude-haiku-5-5",
+            "timeout": 30,
+            "continueOnBlock": true,
+            "statusMessage": "Checking comments for needless words"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
