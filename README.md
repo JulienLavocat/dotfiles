@@ -49,7 +49,7 @@ Version >=0.13 is required and can be hard to find, snap has an updated version 
 
 ### (Optional) Claude Code
 
-`~/.claude/settings.json` (model, plugins, status line…), `~/.claude/statusline-command.sh` and `~/.claude/CLAUDE.md` are stowed from this repo. If a `~/.claude/settings.json` or `~/.claude/CLAUDE.md` already exists, delete it before running stow.
+`~/.claude/settings.json` (model, plugins, status line…), `~/.claude/statusline-command.sh`, `~/.claude/tmux-window-name.sh` (names the tmux window after each prompt, using Haiku) and `~/.claude/CLAUDE.md` are stowed from this repo. If a `~/.claude/settings.json` or `~/.claude/CLAUDE.md` already exists, delete it before running stow.
 
 `~/.claude/CLAUDE.md` holds personal rules (tone, preferences…) that Claude Code loads in every project. Check it's picked up with `/memory` in a new session.
 
