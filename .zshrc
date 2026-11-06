@@ -6,7 +6,12 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(git zsh-autosuggestions fast-syntax-highlighting)
+# Init at source time so fzf, sourced later, keeps its Ctrl-R/Ctrl-T bindings
+ZVM_INIT_MODE=sourcing
+# Copy yanks and deletes to the system clipboard (xclip, wl-copy or pbcopy)
+ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+
+plugins=(git zsh-vi-mode zsh-autosuggestions fast-syntax-highlighting)
 
 # Must be set before oh-my-zsh runs compinit
 fpath=(~/.zsh/completions $fpath)
