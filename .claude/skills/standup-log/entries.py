@@ -48,7 +48,7 @@ for pr in authored:
         covered.add((repo, pr['branch'], day(pr['opened']))); continue
     pid = f"gh:pr:{pr['ref']}"
     if opened and merged and day(pr['opened']) == day(pr['closed']):
-        add(f"Opened and merged PR: {pr['title']}", repo, 'github', pr['closed'], pid + ':merged', pr['url'])
+        add(f"Merged PR: {pr['title']}", repo, 'github', pr['closed'], pid + ':merged', pr['url'])
     else:
         if opened: add(f"Opened PR: {pr['title']}", repo, 'github', pr['opened'], pid + ':opened', pr['url'])
         if merged: add(f"Merged PR: {pr['title']}", repo, 'github', pr['closed'], pid + ':merged', pr['url'])
